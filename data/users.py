@@ -2,34 +2,27 @@ import datetime
 import sqlalchemy
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
-#import db_session
+from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
 
 
-class User(SqlAlchemyBase):
+class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, 
-                           primary_key=True, autoincrement=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    surname = sqlalchemy.Column(sqlalchemy.String, nullable = True)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    email = sqlalchemy.Column(sqlalchemy.String, 
-                              index=True, unique=True, nullable=True)
+    email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime, 
-                                     default=datetime.datetime.now)
-    news = orm.relation("News", back_populates='user')
+    created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
-class News(SqlAlchemyBase):
-    __tablename__ = 'news'
+    def __repr__(self):
+        return f"<User> {self.id} {self.surname} {self.name}"
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, 
-                           primary_key=True, autoincrement=True)
-    title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime, 
-                                     default=datetime.datetime.now)
-    is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
+    def set_password(self, password):
+        self.hashed_password = generate_password_hash(password)
 
-    user_id = sqlalchemy.Column(sqlalchemy.Integer, 
-                                sqlalchemy.ForeignKey("users.id"))
-    user = orm.relation('User')
+    def check_password(self, password):
+        return check_password_hash(self.hashed_password, password)
