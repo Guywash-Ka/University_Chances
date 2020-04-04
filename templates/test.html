@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {% if current_user.is_authenticated %}
+        <h1>Задание № {{number}}</h1>
+        <h4>Тут должен быть вопрос</h4>
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(class="form-control") }}
+            {% for error in form.username.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+
+            {% endfor %}
+        </p>
+        <p>{{ form.submit_back(type="submit", class="btn btn-primary") }}
+        {{ form.submit_next(type="submit", class="btn btn-primary") }}</p>
+    {% else %}
+        <h2>Для начала зарегистрируйтесь на сайте.</h2>
+    {% endif %}
+</form>
+{% endblock %}
