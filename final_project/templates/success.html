@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <h1>Привет, {{ current_user.name }}</h1>
+    <br>
+    <h2>Твои шансы равны {{score}}%!</h2>
+    <br>
+    <p align='centre'>{{ form.submit_back(type="submit", class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

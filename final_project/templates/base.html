@@ -13,6 +13,16 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">РИНХ</a>
+        <blockquote class="blockquote text-right">
+            {% if current_user.is_authenticated %}
+            <a class="navbar-brand" href="/logout">{{ current_user.surname }} {{ current_user.name }}</a>
+            {% else %}
+            <p>
+                <a class="btn btn-primary" href="/register">Зарегистрироваться</a>
+                <a class="btn btn-success" href="/login">Войти</a>
+            </p>
+            {% endif %}
+        </blockquote>
     </nav>
 </header>
 <!-- Begin page content -->

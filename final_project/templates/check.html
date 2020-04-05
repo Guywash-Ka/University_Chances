@@ -4,15 +4,25 @@
 <h1>Проверь свои баллы для поступления!</h1>
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br>
-        {{ form.username(class="form-control") }}<br>
-        {% for error in form.username.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {% if current_user.is_authenticated %}
+        <p>
+            {{ form.score.label }}<br>
+            {{ form.score(class="form-control") }}
+	        {% if wrong_number %}
+		        <div class="alert alert-danger" role="alert">
+                    Введите корректное число баллов. От 0 до 500.
+                </div>
+	        {% endif %}
+            {% for error in form.score.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <p>{{ form.submit_test(type="submit", class="btn btn-primary") }}</p>
+    {% else %}
+        <h2>Для начала авторизируйтесь на сайте.</h2>
+    {% endif %}
 </form>
 {% endblock %}
