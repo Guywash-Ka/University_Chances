@@ -5,7 +5,6 @@
     {{ form.hidden_tag() }}
     {% if current_user.is_authenticated %}
         <h1>Задание № {{number}}</h1>
-        <h4>Тут должен быть вопрос</h4>
         <p>
             {{ form.username.label }}<br>
             {{ form.username(class="form-control") }}
@@ -26,4 +25,5 @@
         <h2>Для начала авторизируйтесь на сайте.</h2>
     {% endif %}
 </form>
+<p><img src="file:///home/vlad/projects/RodionPy/images/car.jpg" alt='нет изображения'></p>
 {% endblock %}

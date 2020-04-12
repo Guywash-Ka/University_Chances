@@ -5,7 +5,11 @@
     {{ form.hidden_tag() }}
     <h1>Привет, {{ current_user.name }}</h1>
     <br>
-    <h2>Твои шансы равны {{score}}%!</h2>
+    {% if points %}
+        <h2>Твои баллы равны {{score}}!</h2>
+    {% else %}
+        <h2>Твои шансы равны {{score}}%!</h2>
+    {% endif %}
     <br>
     <p align='centre'>{{ form.submit_back(type="submit", class="btn btn-primary") }}</p>
 </form>

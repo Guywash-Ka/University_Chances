@@ -12,8 +12,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+CORRECT_ANSWERS = [chr(i) for i in range(97, 118)]
 QUESTION_NUMBER = 1 #номер задания
 ANSWERS = ['' for i in range(20)]
+is_test = False
+
 
 # def add_users():
 #     session = db_session.create_session()
@@ -22,6 +25,17 @@ ANSWERS = ['' for i in range(20)]
 #             user=user, is_private=False)
 #     session.add(news)
 #     session.commit()
+def check_answers(answers):
+    global CORRECT_ANSWERS
+    count = 0
+
+    for i in range(20):
+        if answers[i] == CORRECT_ANSWERS[i]:
+            count += 1
+
+    return count
+
+
 
 
 @app.route("/")
@@ -83,16 +97,18 @@ def logout():
 
 @app.route('/success/<points>', methods=['GET', 'POST'])
 def success(points):
+    global is_test
     form = SuccessForm()
     if form.is_submitted():
         return redirect('/')
-    return render_template('success.html', form=form, score=points)
+    return render_template('success.html', form=form, score=points, points=is_test)
 
 
 @app.route('/check_chances', methods=['GET', 'POST'])
 def check_chances():
     global QUESTION_NUMBER
     global ANSWERS
+    global is_test
     form = CheckForm()
     if form.validate_on_submit():
         if form.submit.data:
@@ -100,6 +116,7 @@ def check_chances():
                 return render_template('check.html', title='Проверка баллов', form=form,
                                     wrong_number=True)
             else:
+                is_test = False
                 return redirect('/success/{}'.format(form.score.data))
     if form.submit_test.data:
         QUESTION_NUMBER = 1
@@ -112,6 +129,7 @@ def check_chances():
 def test():
     global QUESTION_NUMBER
     global ANSWERS
+    global is_test
     print(QUESTION_NUMBER)
     form = TestForm()
     if form.validate_on_submit():
@@ -121,11 +139,13 @@ def test():
                 QUESTION_NUMBER -= 1
                 form.username.data = ANSWERS[QUESTION_NUMBER-1]
         elif form.submit_next.data:
-            QUESTION_NUMBER += 1
-            form.username.data = ANSWERS[QUESTION_NUMBER-1]
+            if QUESTION_NUMBER != 20:
+                QUESTION_NUMBER += 1
+                form.username.data = ANSWERS[QUESTION_NUMBER-1]
         elif form.submit_end.data:
-            print(ANSWERS)
-            return redirect('/success/{}'.format(50))
+            #print(ANSWERS)
+            is_test = True
+            return redirect('/success/{}'.format(check_answers(ANSWERS)))
         elif form.submit_to_main.data:
             return redirect('/')
         return render_template('test.html', title='Тест', form=form, number=QUESTION_NUMBER)
