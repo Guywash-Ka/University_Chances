@@ -1,5 +1,0 @@
-from PIL import Image
-
-im = Image.open('image.bmp')
-w, h = im.size
-pixels = im.load

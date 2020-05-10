@@ -26,3 +26,10 @@ class User(SqlAlchemyBase, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
+
+
+class Question(SqlAlchemyBase, UserMixin):
+    __tablename__ = 'questions'
+
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    question = sqlalchemy.Column(sqlalchemy.Binary)

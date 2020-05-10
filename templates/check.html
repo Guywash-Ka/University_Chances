@@ -6,6 +6,8 @@
     {{ form.hidden_tag() }}
     {% if current_user.is_authenticated %}
         <p>
+            {{ form.select}}
+            {{ form.submit_subject(type="submit", class="btn btn-primary") }}<br>
             {{ form.score.label }}<br>
             {{ form.score(class="form-control") }}
 	        {% if wrong_number %}
@@ -20,9 +22,15 @@
             {% endfor %}
         </p>
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <h3>Предстоящие экзамены:</h3>
+        <ul style="color: crimson;">
+            {% for i in subj %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </ul>
         <p>{{ form.submit_test(type="submit", class="btn btn-primary") }}</p>
     {% else %}
-        <h2>Для начала зарегистрируйтесь на сайте.</h2>
+        <h2>Для начала авторизируйтесь на сайте.</h2>
     {% endif %}
 </form>
 {% endblock %}

@@ -1,6 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Привет, {{ current_user.name }}</h1>
-<h2>Твои шансы равны {{score}}%!</h2>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <h1>Привет, {{ current_user.name }}</h1>
+    <br>
+    {% if points %}
+        <h2>Количество правильных ответов: {{score}}</h2>
+        <p align='right'>{{ form.submit_back(type="submit", class="btn btn-primary") }}</p>
+        <h4>Ваши ответы:</h4>
+        <h2>{{ subjects[0] }}</h2>
+        <ol type="1">
+            {% for i in answers %}
+                <li>{{ i }}</li>
+                {% if loop.index == question_numbers[0] %}
+                    <h2>{{ subjects[1] }}</h2>
+                {% elif loop.index == question_numbers[1] + question_numbers[0] %}
+                    <h2>{{ subjects[2] }}</h2>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <ul style="color: rgb(9, 255, 0);"><h4>Правильные ответы:</h4></ul>
+        <h2>{{ subjects[0] }}</h2>
+        <ol type="1">
+            {% for i in correct_answers %}
+                <li>{{ i }}</li>
+                {% if loop.index == question_numbers[0] %}
+                    <h2>{{ subjects[1] }}</h2>
+                {% elif loop.index == question_numbers[1] + question_numbers[0] %}
+                    <h2>{{ subjects[2] }}</h2>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h2>Твои шансы на успешное поступление равны {{score}}!</h2>
+        <p align='right'>{{ form.submit_back(type="submit", class="btn btn-primary") }}</p>
+    {% endif %}
+    <br>
+    
+</form>
 {% endblock %}
