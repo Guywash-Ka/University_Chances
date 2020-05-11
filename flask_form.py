@@ -13,18 +13,18 @@ class LoginForm(FlaskForm):
 
 
 class CheckForm(FlaskForm):
-    score = IntegerField('Ваш балл:', validators=[DataRequired()])
-    submit = SubmitField('Проверить')
-    submit_test = SubmitField('Перейти к тесту')
+    score = IntegerField('Сумма ваших баллов по трём экзаменам:', validators=[DataRequired()])
+    submit = SubmitField('Проверить вероятность поступления')
+    submit_test = SubmitField('Пройти выбранные экзамены')
     select = SelectField('Предметы', choices=[(i, i) for i in subjects.keys()])
-    submit_subject = SubmitField('Выбрать предмет')
+    submit_subject = SubmitField('Выбрать')
 
 
 class TestForm(FlaskForm):
-    username = StringField('Ответ')
-    submit_next = SubmitField('Далее', description='Next')
-    submit_back = SubmitField('Назад', description='Previous')
-    submit_end = SubmitField('Перейти далее', description='End')
+    username = StringField('Ваш ответ:')
+    submit_next = SubmitField('Следующий вопрос', description='Next')
+    submit_back = SubmitField('Предыдущий вопрос', description='Previous')
+    submit_end = SubmitField('Закончить тест', description='End')
     submit_to_main = SubmitField('Вернуться на главную страницу')
 
 
@@ -42,4 +42,4 @@ class RegisterForm(FlaskForm):
 
 
 class SuccessForm(FlaskForm):
-    submit_back = SubmitField('Вернуться назад')
+    submit_back = SubmitField('Вернуться на главную страницу')

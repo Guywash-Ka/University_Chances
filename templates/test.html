@@ -4,7 +4,7 @@
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     {% if current_user.is_authenticated %}
-        <h1><font color='red'>{{ title }}</font></h1>
+        <h1><font color='blue'>{{ title }}</font></h1>
         <h2>Задание № {{number}}</h2>
         <p>{{ question }}</p>
         <p>
@@ -27,5 +27,5 @@
         <h2>Для начала авторизируйтесь на сайте.</h2>
     {% endif %}
 </form>
-<p><img src="images/car.jpg" alt='no'/></p>
+<p><img src="images/car.jpg" alt=''/></p>
 {% endblock %}

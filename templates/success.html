@@ -8,27 +8,40 @@
     {% if points %}
         <h2>Количество правильных ответов: {{score}}</h2>
         <p align='right'>{{ form.submit_back(type="submit", class="btn btn-primary") }}</p>
-        <h4>Ваши ответы:</h4>
-        <h2>{{ subjects[0] }}</h2>
+        <!--
+        <h2>Ваши ответы:</h2>
+        <h3 align='center'>{{ subjects[0] }}</h3>
         <ol type="1">
             {% for i in answers %}
-                <li>{{ i }}</li>
+                <h4><li>{{ i }}</li></h4>
                 {% if loop.index == question_numbers[0] %}
-                    <h2>{{ subjects[1] }}</h2>
+                    <h2 align='center'>{{ subjects[1] }}</h2 align='center'>
                 {% elif loop.index == question_numbers[1] + question_numbers[0] %}
-                    <h2>{{ subjects[2] }}</h2>
+                    <h2 align='center'>{{ subjects[2] }}</h2 align='center'>
                 {% endif %}
             {% endfor %}
         </ol>
-        <ul style="color: rgb(9, 255, 0);"><h4>Правильные ответы:</h4></ul>
-        <h2>{{ subjects[0] }}</h2>
+        <ul style="color: blue;"><h2>Правильные ответы:</h2></ul>
+        <h3 align='center'>{{ subjects[0] }}</h3 align='center'>
         <ol type="1">
             {% for i in correct_answers %}
-                <li>{{ i }}</li>
+                <h4><li>{{ i }}</li></h4>
                 {% if loop.index == question_numbers[0] %}
-                    <h2>{{ subjects[1] }}</h2>
+                    <h2 align='center'>{{ subjects[1] }}</h2 align='center'>
                 {% elif loop.index == question_numbers[1] + question_numbers[0] %}
-                    <h2>{{ subjects[2] }}</h2>
+                    <h2 align='center'>{{ subjects[2] }}</h2 align='center'>
+                {% endif %}
+            {% endfor %}
+        </ol>-->
+        <h2><pre>Ваши ответы:       Правильные ответы:</pre></h2>
+        <h3 align='left' style="color: darkblue;">{{ subjects[0] }}</h3 align='center'>
+        <ol type="1">
+            {% for i in correct_answers %}
+                <h4><li><pre>{{ i }}                         {{ i }}</pre></li></h4>
+                {% if loop.index == question_numbers[0] %}
+                    <h2 align='left' style="color: darkblue;">{{ subjects[1] }}</h2 align='center'>
+                {% elif loop.index == question_numbers[1] + question_numbers[0] %}
+                    <h2 align='left' style="color: darkblue;">{{ subjects[2] }}</h2 align='center'>
                 {% endif %}
             {% endfor %}
         </ol>
