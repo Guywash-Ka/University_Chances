@@ -8,7 +8,6 @@ class LoginForm(FlaskForm):
     email = StringField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
-    # recaptcha = RecaptchaField()
     submit = SubmitField('Войти')
 
 
@@ -37,7 +36,6 @@ class RegisterForm(FlaskForm):
     age = IntegerField('Возраст*', validators = [DataRequired()])
     about = StringField("О себе")
     remember_me = BooleanField('Запомнить меня')
-    # recapcha = RecaptchaField()
     submit = SubmitField('Подтвердить')
 
 

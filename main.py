@@ -7,27 +7,20 @@ from flask_login import login_user, LoginManager, login_required, logout_user
 from subjects import *
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['SECRET_KEY'] = 'supersecret'
 db_session.global_init('db/abi.sqlite')
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 
 CORRECT_ANSWERS = [chr(i) for i in range(32, 125)]
-QUESTION_NUMBER = 1 #номер задания
+QUESTION_NUMBER = 1
 ANSWERS = []
 is_test = False
 test_number = 1
 subjects_needed = []
 
 
-# def add_users():
-#     session = db_session.create_session()
-#     user = session.query(users.User).filter(users.User.id == 1).first()
-#     news = users.News(title="Вторая новость", content="Пока блог!",
-#             user=user, is_private=False)
-#     session.add(news)
-#     session.commit()
 def check_answers(answers):
     global CORRECT_ANSWERS
     count = 0
@@ -53,12 +46,6 @@ def numb_to_skip(test):
     elif test == 2:
         return number_of_questions[subjects_needed[0]]
     return number_of_questions[subjects_needed[1]] + number_of_questions[subjects_needed[0]]
-
-
-def make_option_list(arr):
-    pass
-
-
 
 
 @app.route("/")

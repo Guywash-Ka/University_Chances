@@ -1,7 +1,6 @@
 import datetime
 import sqlalchemy
 from .db_session import SqlAlchemyBase
-from sqlalchemy import orm
 from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash
 from flask_login import UserMixin
@@ -32,4 +31,4 @@ class Question(SqlAlchemyBase, UserMixin):
     __tablename__ = 'questions'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-    question = sqlalchemy.Column(sqlalchemy.Binary)
+    question = sqlalchemy.Column(sqlalchemy.BINARY)
